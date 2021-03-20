@@ -1,3 +1,6 @@
+from django.db import transaction
+from django.core.management.utils import get_random_secret_key
+
 from utils import get_now
 
 from users.models import User
@@ -37,6 +40,15 @@ def user_create_superuser(email, password=None, **extra_fields) -> User:
 
 def user_record_login(*, user: User) -> User:
     user.last_login = get_now()
+    user.save()
+
+    return user
+
+
+@transaction.atomic
+def user_change_secret_key(*, user: User) -> User:
+    user.secret_key = get_random_secret_key()
+    user.full_clean()
     user.save()
 
     return user

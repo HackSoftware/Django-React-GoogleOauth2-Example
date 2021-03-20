@@ -1,9 +1,16 @@
-from django.core.exceptions import ValidationError
-
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import exceptions as rest_exceptions
+
+from django.core.exceptions import ValidationError
 
 from utils import get_error_message
 from users.models import User
+
+
+class ApiAuthMixin:
+    authentication_classes = (JSONWebTokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
 
 
 class ApiErrorsMixin:
