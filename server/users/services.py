@@ -1,3 +1,5 @@
+from utils import get_now
+
 from users.models import User
 
 
@@ -29,5 +31,12 @@ def user_create_superuser(email, password=None, **extra_fields) -> User:
     }
 
     user = user_create(email=email, password=password, **extra_fields)
+
+    return user
+
+
+def user_record_login(*, user: User) -> User:
+    user.last_login = get_now()
+    user.save()
 
     return user
