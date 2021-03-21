@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { HOME_URL } from 'config/urls';
 import { notifyError, notifySuccess } from 'utils/notifications';
-import { UserContext } from 'components';
+import { UserContext, GithubStars } from 'components';
 
 import { userInit } from './sdk';
 
@@ -52,6 +52,8 @@ const Login = () => {
         onFailure={console.log}
         cookiePolicy={'single_host_origin'}
       />
+
+      <GithubStars />
     </div>
   );
 };

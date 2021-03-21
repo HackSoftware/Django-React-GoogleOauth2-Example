@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import { LOGIN_URL } from 'config/urls';
 import { useUserRequired } from 'utils/hooks';
-import { UserContext } from 'components';
+import { UserContext, GithubStars } from 'components';
 
 import { logout } from './sdk';
 
@@ -27,6 +27,7 @@ const Home = () => {
     <div>
       <h1>Hello, {user.email}!</h1>
       <button onClick={handleLogout}>Logout</button>
+      <GithubStars />
     </div>
   );
 };
