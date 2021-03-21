@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { useUserRequired } from 'utils/hooks';
+import { UserContext } from 'components';
 
 const Home = () => {
   useUserRequired();
 
-  return <h1>Home</h1>;
+  const { user } = useContext(UserContext);
+
+  if (!user) {
+    return null;
+  }
+
+  return <h1>Hello, {user.email}!</h1>;
 };
 
 export default Home;
