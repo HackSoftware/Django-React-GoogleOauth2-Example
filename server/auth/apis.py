@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_jwt.views import ObtainJSONWebToken
 
-
 from django.conf import settings
 
 from api.mixins import ApiErrorsMixin, ApiAuthMixin

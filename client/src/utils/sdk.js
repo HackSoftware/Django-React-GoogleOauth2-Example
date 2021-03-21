@@ -20,8 +20,14 @@ const handle401 = resp => {
   return resp;
 };
 
-const serializeResponse = response =>
-  response.json().then(data => ({ status: response.status, data }));
+const serializeResponse = response => {
+  return response
+    .text()
+    .then(text => {
+      return text ? JSON.parse(text) : {};
+    })
+    .then(data => ({ status: response.status, data }));
+};
 
 export const get = (url, options) =>
   fetch(`${BASE_API_URL}/${url}`, { ...getBaseConfig('get'), ...options })
