@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
     'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -151,3 +153,9 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.selectors.jwt_response_payload_handler',
     'JWT_AUTH_COOKIE': 'jwt_token'
 }
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = env.list(
+    'DJANGO_CORS_ORIGIN_WHITELIST',
+    default=['http://localhost:3000']
+)

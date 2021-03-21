@@ -4,6 +4,7 @@ djangorestframework==3.12.2
 djangorestframework-jwt==1.11.0
 django-environ==0.4.5
 django-extensions==3.1.1
+django-cors-headers==3.7.0
 flake8==3.9.0
 importlib-metadata==3.7.3
 mccabe==0.6.1
