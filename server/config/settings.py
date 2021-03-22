@@ -18,6 +18,8 @@ import environ
 env = environ.Env(
     DEBUG=(int, 0)
 )
+# reading .env file
+environ.Env.read_env('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,6 +141,10 @@ AUTH_USER_MODEL = 'users.User'
 
 PRODUCTION_SETTINGS = env.bool('DJANGO_PRODUCTION_SETTINGS', default=False)
 
+BASE_BACKEND_URL = env.str('DJANGO_BASE_BACKEND_URL', default='http://localhost:8000')
+BASE_FRONTEND_URL = env.str('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
+
+# JWT settings
 JWT_EXPIRATION_DELTA_DEFAULT = 2.628e+6  # 1 month in seconds
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
@@ -154,8 +160,10 @@ JWT_AUTH = {
     'JWT_AUTH_COOKIE': 'jwt_token'
 }
 
+
+# CORS settings
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = env.list(
     'DJANGO_CORS_ORIGIN_WHITELIST',
-    default=['http://localhost:3000']
+    default=[BASE_FRONTEND_URL]
 )
