@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { HOME_URL } from 'config/urls';
 import { notifyError, notifySuccess } from 'utils/notifications';
-import { UserContext, GithubStars } from 'components';
+import { UserContext, GithubStars, Layout } from 'components';
 
 import { userInit } from './sdk';
 
@@ -42,7 +42,7 @@ const Login = () => {
   );
 
   return (
-    <div>
+    <Layout>
       <h1>Login</h1>
 
       <GoogleLogin
@@ -54,7 +54,7 @@ const Login = () => {
       />
 
       <GithubStars />
-    </div>
+    </Layout>
   );
 };
 

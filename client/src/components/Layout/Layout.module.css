@@ -1,0 +1,42 @@
+.pageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+
+  background-image: url('./assets/background.png');
+  background-position: center;
+  background-size: cover;
+}
+
+.content {
+  background: white;
+  box-shadow: 0px 6px 13px #00000029;
+  height: 460px;
+  width: 420px;
+}
+
+.orangeBar {
+  width: 20px;
+  height: 500px;
+  background-color: #f68c0d;
+}
+.orangeBar:after,
+.orangeBar:before {
+  content: '';
+  background-color: #f68c0d;
+  width: 40px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+}
+.orangeBar:after {
+  top: 460px;
+}
+.orangeBar:before {
+  top: 0;
+}
+.orangeBar:last-child {
+  transform: rotate(180deg);
+}

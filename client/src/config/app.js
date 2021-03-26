@@ -9,13 +9,13 @@ function App() {
   const [user, setUser] = useState(null);
 
   return (
-    <div>
+    <>
       <UserContext.Provider value={{ user, setUser }}>
         <Routes />
       </UserContext.Provider>
 
       <ToastContainer
-        position='top-right'
+        position="top-right"
         autoClose={3000}
         hideProgressBar
         newestOnTop
@@ -25,7 +25,7 @@ function App() {
         draggable
         pauseOnHover={false}
       />
-    </div>
+    </>
   );
 }
 
