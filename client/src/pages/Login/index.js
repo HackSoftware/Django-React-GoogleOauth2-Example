@@ -7,6 +7,7 @@ import { notifyError, notifySuccess } from 'utils/notifications';
 import { UserContext, GithubStars, Layout } from 'components';
 
 import { userInit } from './sdk';
+import styles from './Login.module.css';
 
 const Login = () => {
   const history = useHistory();
@@ -42,9 +43,10 @@ const Login = () => {
   );
 
   return (
-    <Layout>
-      <h1>Login</h1>
+    <Layout className={styles.content}>
+      <h1 className={styles.pageHeader}>Welcome to our Demo App!</h1>
 
+      <h2 className={styles.btnHeader}>Try Backend flow:</h2>
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Login with Google"
@@ -53,7 +55,16 @@ const Login = () => {
         cookiePolicy={'single_host_origin'}
       />
 
-      <GithubStars />
+      <h2 className={styles.btnHeader}>Try Frontend flow:</h2>
+      <GoogleLogin
+        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+        buttonText="Login with Google"
+        onSuccess={onGoogleLoginSuccess}
+        onFailure={console.log}
+        cookiePolicy={'single_host_origin'}
+      />
+
+      <GithubStars className={styles.githubStars} />
     </Layout>
   );
 };

@@ -6,6 +6,7 @@ import { useUserRequired } from 'utils/hooks';
 import { UserContext, GithubStars, Layout } from 'components';
 
 import { logout } from './sdk';
+import styles from './Home.module.css';
 
 const Home = () => {
   useUserRequired();
@@ -24,10 +25,13 @@ const Home = () => {
   }
 
   return (
-    <Layout>
-      <h1>Hello, {user.email}!</h1>
-      <button onClick={handleLogout}>Logout</button>
-      <GithubStars />
+    <Layout className={styles.content}>
+      <h2 className={styles.welcome}>Welcome!</h2>
+      <h1 className={styles.userEmail}>{user.email}!</h1>
+      <button className={styles.logoutBtn} onClick={handleLogout}>
+        LOGOUT
+      </button>
+      <GithubStars className={styles.githubStars} />
     </Layout>
   );
 };

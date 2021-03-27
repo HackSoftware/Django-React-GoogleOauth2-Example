@@ -1,0 +1,26 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pageHeader {
+  font-family: 'Nunito Sans';
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--grey);
+  margin-top: 60px;
+}
+
+.btnHeader {
+  font-family: 'Nunito Sans';
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--grey);
+  margin: 20px 0 10px 0;
+}
+
+.githubStars {
+  position: absolute;
+  bottom: 20px;
+}
