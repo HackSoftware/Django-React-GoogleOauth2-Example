@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Extra Info
+
+**NOTE: You have to add your Google Client ID in the `.env` file in order to use the Frontedn flow.**
+
 ## Available Scripts
 
 In the project directory, you can run:
