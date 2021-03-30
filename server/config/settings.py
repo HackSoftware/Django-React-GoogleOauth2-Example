@@ -142,7 +142,6 @@ AUTH_USER_MODEL = 'users.User'
 
 PRODUCTION_SETTINGS = env.bool('DJANGO_PRODUCTION_SETTINGS', default=False)
 
-
 # JWT settings
 JWT_EXPIRATION_DELTA_DEFAULT = 2.628e+6  # 1 month in seconds
 JWT_AUTH = {
