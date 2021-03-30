@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import datetime
-from pathlib import Path
 import environ
+
+from pathlib import Path
+from django.core.management.utils import get_random_secret_key
 
 
 env = environ.Env(
@@ -24,18 +26,16 @@ environ.Env.read_env('.env')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'z_*3bs_(s@#gbp2pf)p!0jp1&lw8d2n4d7%9j5^bpni+q33qa1'
+SECRET_KEY = env.str('DJANGO_SECRET_KEY', default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+BASE_BACKEND_URL = env.str('DJANGO_BASE_BACKEND_URL', default='http://localhost:8000')
+BASE_FRONTEND_URL = env.str('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
 
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=[BASE_BACKEND_URL])
 
 # Application definition
 
@@ -141,8 +141,6 @@ AUTH_USER_MODEL = 'users.User'
 
 PRODUCTION_SETTINGS = env.bool('DJANGO_PRODUCTION_SETTINGS', default=False)
 
-BASE_BACKEND_URL = env.str('DJANGO_BASE_BACKEND_URL', default='http://localhost:8000')
-BASE_FRONTEND_URL = env.str('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
 
 # JWT settings
 JWT_EXPIRATION_DELTA_DEFAULT = 2.628e+6  # 1 month in seconds

@@ -9,6 +9,7 @@ djangorestframework==3.12.2
 djangorestframework-jwt==1.11.0
 environ==1.0
 flake8==3.9.0
+gunicorn==20.1.0
 idna==2.10
 importlib-metadata==3.7.3
 mccabe==0.6.1
