@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import datetime
 import environ
+import django_heroku
 
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
@@ -170,3 +171,7 @@ CORS_ORIGIN_WHITELIST = env.list(
 # Google OAuth2 settings
 GOOGLE_OAUTH2_CLIENT_ID = env.str('DJANGO_GOOGLE_OAUTH2_CLIENT_ID')
 GOOGLE_OAUTH2_CLIENT_SECRET = env.str('DJANGO_GOOGLE_OAUTH2_CLIENT_SECRET')
+
+
+# Heroku
+django_heroku.settings(locals())
