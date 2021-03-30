@@ -35,7 +35,7 @@ DEBUG = env.bool('DEBUG', default=True)
 BASE_BACKEND_URL = env.str('DJANGO_BASE_BACKEND_URL', default='http://localhost:8000')
 BASE_FRONTEND_URL = env.str('DJANGO_BASE_FRONTEND_URL', default='http://localhost:3000')
 
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=[BASE_BACKEND_URL])
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['localhost', '.herokuapp.com'])
 
 # Application definition
 
