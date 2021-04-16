@@ -84,11 +84,11 @@ const Login = () => {
 
       <h2 className={styles.btnHeader}>Try Frontend flow:</h2>
       <GoogleLogin
-        render={(renderProps) => <GoogleButton {...renderProps} />}
+        render={renderProps => <GoogleButton {...renderProps} />}
         clientId={REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Sign in with Google"
         onSuccess={onGoogleLoginSuccess}
-        onFailure={notifyError}
+        onFailure={({ error }) => notifyError(error)}
         cookiePolicy={'single_host_origin'}
       />
 
