@@ -21,7 +21,7 @@ const Login = () => {
   } = process.env;
 
   const handleUserInit = useCallback(
-    (resp) => {
+    resp => {
       if (resp.status === 201) {
         notifySuccess(
           'We successfully created your account in our database. You can now login to the app.'
@@ -35,14 +35,16 @@ const Login = () => {
   );
 
   const onGoogleLoginSuccess = useCallback(
-    (response) => {
+    response => {
       const profileData = {
         email: response.profileObj.email,
         first_name: response.profileObj.givenName,
         last_name: response.profileObj.familyName
       };
 
-      userInit(profileData).then(handleUserInit).catch(notifyError);
+      userInit(profileData)
+        .then(handleUserInit)
+        .catch(notifyError);
     },
     [handleUserInit]
   );
@@ -86,7 +88,7 @@ const Login = () => {
         clientId={REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Sign in with Google"
         onSuccess={onGoogleLoginSuccess}
-        onFailure={console.log}
+        onFailure={notifyError}
         cookiePolicy={'single_host_origin'}
       />
 

@@ -35,6 +35,4 @@ class UserInitApi(PublicApiMixin, ApiErrorsMixin, APIView):
 
         response.set_cookie(**jwt_cookie_data)
 
-        user_record_login(user=user)
-
         return response
