@@ -11,14 +11,11 @@ import { UserContext, GithubStars, Layout } from 'components';
 import { userInit } from './sdk';
 import styles from './Login.module.css';
 
+const { REACT_APP_GOOGLE_CLIENT_ID, REACT_APP_BASE_BACKEND_URL } = process.env;
+
 const Login = () => {
   const history = useHistory();
   const { setUser } = useContext(UserContext);
-
-  const {
-    REACT_APP_GOOGLE_CLIENT_ID,
-    REACT_APP_BASE_BACKEND_URL
-  } = process.env;
 
   const handleUserInit = useCallback(
     resp => {
@@ -49,7 +46,7 @@ const Login = () => {
     [handleUserInit]
   );
 
-  const openGoogleLoginPage = () => {
+  const openGoogleLoginPage = useCallback(() => {
     const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
     const redirectUri = 'api/v1/auth/login/google/';
 
@@ -69,7 +66,7 @@ const Login = () => {
     const urlParams = new URLSearchParams(params).toString();
 
     window.location = `${googleAuthUrl}?${urlParams}`;
-  };
+  }, []);
 
   return (
     <Layout className={styles.content}>
@@ -88,7 +85,9 @@ const Login = () => {
         clientId={REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Sign in with Google"
         onSuccess={onGoogleLoginSuccess}
-        onFailure={({ details }) => notifyError(details)}
+        onFailure={({ details }) => {
+          notifyError(details);
+        }}
         cookiePolicy={'single_host_origin'}
       />
 
