@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from rest_framework import status, serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -43,8 +45,9 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
         error = validated_data.get('error')
 
         if error or not code:
-            # TODO: Encode error as query param
-            return redirect(settings.BASE_FRONTEND_URL)
+            params = urlencode({'error': error})
+            login_url = f'{settings.BASE_FRONTEND_URL}/login'
+            return redirect(f'{login_url}?{params}')
 
         domain = settings.BASE_BACKEND_URL
         api_uri = reverse('api:v1:auth:login-with-google')
