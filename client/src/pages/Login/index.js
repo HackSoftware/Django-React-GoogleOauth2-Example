@@ -19,10 +19,16 @@ const Login = () => {
 
   useEffect(() => {
     const queryParams = new URLSearchParams(history.location.search);
+
     const error = queryParams.get('error');
+    const message = queryParams.get('message');
 
     if (error) {
       notifyError(error);
+      history.replace({ search: null });
+    }
+    if (message) {
+      notifySuccess(message);
       history.replace({ search: null });
     }
   }, [history]);

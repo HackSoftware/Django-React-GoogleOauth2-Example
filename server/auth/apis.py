@@ -44,9 +44,10 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
         code = validated_data.get('code')
         error = validated_data.get('error')
 
+        login_url = f'{settings.BASE_FRONTEND_URL}/login'
+
         if error or not code:
             params = urlencode({'error': error})
-            login_url = f'{settings.BASE_FRONTEND_URL}/login'
             return redirect(f'{login_url}?{params}')
 
         domain = settings.BASE_BACKEND_URL
@@ -66,8 +67,14 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
         user, created = user_get_or_create(**profile_data)
 
         if created:
-            # TODO: Do not login, just return to FE
-            pass
+            # Note: This is just for the sake of the example.
+            # You can directly log-in your users if you want to. :)
+            message = (
+                'We successfully created your account in our database. '
+                'You can now login to the app.'
+            )
+            params = urlencode({'message': message})
+            return redirect(f'{login_url}?{params}')
 
         response = redirect(settings.BASE_FRONTEND_URL)
         jwt_cookie_data = jwt_login(user=user)
