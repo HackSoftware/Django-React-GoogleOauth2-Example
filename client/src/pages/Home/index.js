@@ -5,6 +5,7 @@ import { LOGIN_URL } from 'config/urls';
 import { useUserRequired } from 'utils/hooks';
 import { UserContext, GithubStars, Layout } from 'components';
 
+import welcomePandaGif from './assets/welcome-panda.gif';
 import { logout } from './sdk';
 import styles from './Home.module.css';
 
@@ -26,8 +27,12 @@ const Home = () => {
 
   return (
     <Layout className={styles.content}>
-      <h2 className={styles.welcome}>Welcome!</h2>
-      <h1 className={styles.userEmail}>{user.email}!</h1>
+      <img
+        src={welcomePandaGif}
+        alt="Welcome Panda"
+        className={styles.pandaImg}
+      />
+      <h1 className={styles.userEmail}>{user.email}</h1>
       <button className={styles.logoutBtn} onClick={handleLogout}>
         LOGOUT
       </button>
