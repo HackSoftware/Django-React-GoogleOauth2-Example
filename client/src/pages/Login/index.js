@@ -5,7 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import GoogleButton from 'react-google-button';
 
 import { HOME_URL } from 'config/urls';
-import { notifyError, notifySuccess } from 'utils/notifications';
+import { notifyError } from 'utils/notifications';
 import { UserContext, GithubStars, Layout } from 'components';
 
 import { userInit } from './sdk';
@@ -21,14 +21,9 @@ const Login = () => {
     const queryParams = new URLSearchParams(history.location.search);
 
     const error = queryParams.get('error');
-    const message = queryParams.get('message');
 
     if (error) {
       notifyError(error);
-      history.replace({ search: null });
-    }
-    if (message) {
-      notifySuccess(message);
       history.replace({ search: null });
     }
   }, [history]);

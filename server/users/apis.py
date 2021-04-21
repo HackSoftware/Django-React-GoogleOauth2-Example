@@ -27,8 +27,9 @@ class UserInitApi(PublicApiMixin, ApiErrorsMixin, APIView):
 
         user, created = user_get_or_create(**serializer.validated_data)
 
-        if created:
-            return Response(status=status.HTTP_201_CREATED)
+        # We use get-or-create logic here for the sake of the example.
+        # We don't have a sign-up flow.
+        user, _ = user_get_or_create(**serializer.validated_data)
 
         response = Response(data=user_get_me(user=user))
         jwt_cookie_data = jwt_login(user=user)
