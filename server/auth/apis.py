@@ -64,17 +64,9 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
             'last_name': user_data.get('familyName', ''),
         }
 
-        user, created = user_get_or_create(**profile_data)
-
-        if created:
-            # Note: This is just for the sake of the example.
-            # You can directly log-in your users if you want to. :)
-            message = (
-                'We successfully created your account in our database. '
-                'You can now login to the app.'
-            )
-            params = urlencode({'message': message})
-            return redirect(f'{login_url}?{params}')
+        # We use get-or-create logic here for the sake of the example.
+        # We don't have a sign-up flow.
+        user, _ = user_get_or_create(**profile_data)
 
         response = redirect(settings.BASE_FRONTEND_URL)
         jwt_cookie_data = jwt_login(user=user)

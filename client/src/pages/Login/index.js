@@ -5,7 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import GoogleButton from 'react-google-button';
 
 import { HOME_URL } from 'config/urls';
-import { notifyError, notifySuccess } from 'utils/notifications';
+import { notifyError } from 'utils/notifications';
 import { UserContext, GithubStars, Layout } from 'components';
 
 import { userInit } from './sdk';
@@ -21,27 +21,20 @@ const Login = () => {
     const queryParams = new URLSearchParams(history.location.search);
 
     const error = queryParams.get('error');
-    const message = queryParams.get('message');
 
     if (error) {
       notifyError(error);
-      history.replace({ search: null });
-    }
-    if (message) {
-      notifySuccess(message);
       history.replace({ search: null });
     }
   }, [history]);
 
   const handleUserInit = useCallback(
     resp => {
-      if (resp.status === 201) {
-        notifySuccess(
-          'We successfully created your account in our database. You can now login to the app.'
-        );
-      } else {
+      if (resp.ok) {
         setUser(resp.data);
         history.push(HOME_URL);
+      } else {
+        notifyError(resp.data[0]);
       }
     },
     [history, setUser]
@@ -50,14 +43,13 @@ const Login = () => {
   const onGoogleLoginSuccess = useCallback(
     response => {
       const profileData = {
+        access_token: response.accessToken,
         email: response.profileObj.email,
         first_name: response.profileObj.givenName,
         last_name: response.profileObj.familyName
       };
 
-      userInit(profileData)
-        .then(handleUserInit)
-        .catch(notifyError);
+      userInit(profileData).then(handleUserInit).catch(notifyError);
     },
     [handleUserInit]
   );

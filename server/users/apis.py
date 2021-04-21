@@ -1,10 +1,10 @@
+from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import serializers, status
 
 from api.mixins import ApiErrorsMixin, ApiAuthMixin, PublicApiMixin
 
-from auth.services import jwt_login
+from auth.services import jwt_login, google_validate_access_token
 
 from users.services import user_get_or_create
 from users.selectors import user_get_me
@@ -17,6 +17,7 @@ class UserMeApi(ApiAuthMixin, ApiErrorsMixin, APIView):
 
 class UserInitApi(PublicApiMixin, ApiErrorsMixin, APIView):
     class InputSerializer(serializers.Serializer):
+        access_token = serializers.CharField()
         email = serializers.EmailField()
         first_name = serializers.CharField(required=False, default='')
         last_name = serializers.CharField(required=False, default='')
@@ -25,10 +26,12 @@ class UserInitApi(PublicApiMixin, ApiErrorsMixin, APIView):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        user, created = user_get_or_create(**serializer.validated_data)
+        access_token = serializer.validated_data.pop('access_token')
+        google_validate_access_token(access_token=access_token)
 
-        if created:
-            return Response(status=status.HTTP_201_CREATED)
+        # We use get-or-create logic here for the sake of the example.
+        # We don't have a sign-up flow.
+        user, _ = user_get_or_create(**serializer.validated_data)
 
         response = Response(data=user_get_me(user=user))
         jwt_cookie_data = jwt_login(user=user)

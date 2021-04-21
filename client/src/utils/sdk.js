@@ -26,7 +26,7 @@ const serializeResponse = response => {
     .then(text => {
       return text ? JSON.parse(text) : {};
     })
-    .then(data => ({ status: response.status, data }));
+    .then(data => ({ status: response.status, ok: response.ok, data }));
 };
 
 export const get = (url, options) =>
