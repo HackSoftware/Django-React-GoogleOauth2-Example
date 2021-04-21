@@ -35,11 +35,7 @@ const Login = () => {
 
   const handleUserInit = useCallback(
     resp => {
-      if (resp.status === 201) {
-        notifySuccess(
-          'We successfully created your account in our database. You can now login to the app.'
-        );
-      } else {
+      if (resp.ok) {
         setUser(resp.data);
         history.push(HOME_URL);
       }
