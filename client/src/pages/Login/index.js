@@ -33,6 +33,8 @@ const Login = () => {
       if (resp.ok) {
         setUser(resp.data);
         history.push(HOME_URL);
+      } else {
+        notifyError(resp.data[0]);
       }
     },
     [history, setUser]
@@ -41,14 +43,13 @@ const Login = () => {
   const onGoogleLoginSuccess = useCallback(
     response => {
       const profileData = {
+        access_token: response.accessToken,
         email: response.profileObj.email,
         first_name: response.profileObj.givenName,
         last_name: response.profileObj.familyName
       };
 
-      userInit(profileData)
-        .then(handleUserInit)
-        .catch(notifyError);
+      userInit(profileData).then(handleUserInit).catch(notifyError);
     },
     [handleUserInit]
   );
