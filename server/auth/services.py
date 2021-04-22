@@ -24,18 +24,14 @@ def jwt_login(user: User) -> Optional[dict]:
     if api_settings.JWT_AUTH_COOKIE:
         expiration = get_now().utcnow() + api_settings.JWT_EXPIRATION_DELTA
 
-        is_production_env = settings.PRODUCTION_SETTINGS
-
         cookie_data = {
             'key': api_settings.JWT_AUTH_COOKIE,
             'value': token,
             'expires': expiration,
             'httponly': True,
-            'secure': is_production_env
+            'secure': settings.PRODUCTION_SETTINGS,
+            'samesite': None
         }
-
-        if is_production_env:
-            cookie_data['samesite'] = None
 
         user_record_login(user=user)
 
