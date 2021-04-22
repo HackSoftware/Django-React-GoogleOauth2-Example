@@ -49,7 +49,9 @@ const Login = () => {
         last_name: response.profileObj.familyName
       };
 
-      userInit(profileData, idToken).then(handleUserInit).catch(notifyError);
+      userInit(profileData, idToken)
+        .then(handleUserInit)
+        .catch(notifyError);
     },
     [handleUserInit]
   );
@@ -80,14 +82,14 @@ const Login = () => {
     <Layout className={styles.content}>
       <h1 className={styles.pageHeader}>Welcome to our Demo App!</h1>
 
-      <h2 className={styles.btnHeader}>Try Backend flow:</h2>
+      <h2 className={styles.btnHeader}>Server-side flow:</h2>
       <GoogleButton
         onClick={openGoogleLoginPage}
         label="Sign in with Google"
         disabled={!REACT_APP_GOOGLE_CLIENT_ID}
       />
 
-      <h2 className={styles.btnHeader}>Try Frontend flow:</h2>
+      <h2 className={styles.btnHeader}>Client-side flow:</h2>
       <GoogleLogin
         render={renderProps => <GoogleButton {...renderProps} />}
         clientId={REACT_APP_GOOGLE_CLIENT_ID}
