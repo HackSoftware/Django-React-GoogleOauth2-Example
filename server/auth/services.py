@@ -30,7 +30,7 @@ def jwt_login(user: User) -> Optional[dict]:
             'expires': expiration,
             'httponly': True,
             'secure': settings.PRODUCTION_SETTINGS,
-            'samesite': None
+            'samesite': 'None'
         }
 
         user_record_login(user=user)
