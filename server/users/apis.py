@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from api.mixins import ApiErrorsMixin, ApiAuthMixin, PublicApiMixin
 
-from auth.services import jwt_login, google_validate_access_token
+from auth.services import jwt_login, google_validate_id_token
 
 from users.services import user_get_or_create
 from users.selectors import user_get_me
@@ -17,17 +17,16 @@ class UserMeApi(ApiAuthMixin, ApiErrorsMixin, APIView):
 
 class UserInitApi(PublicApiMixin, ApiErrorsMixin, APIView):
     class InputSerializer(serializers.Serializer):
-        access_token = serializers.CharField()
         email = serializers.EmailField()
         first_name = serializers.CharField(required=False, default='')
         last_name = serializers.CharField(required=False, default='')
 
     def post(self, request, *args, **kwargs):
+        id_token = request.headers.get('Authorization')
+        google_validate_id_token(id_token=id_token)
+
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        access_token = serializer.validated_data.pop('access_token')
-        google_validate_access_token(access_token=access_token)
 
         # We use get-or-create logic here for the sake of the example.
         # We don't have a sign-up flow.

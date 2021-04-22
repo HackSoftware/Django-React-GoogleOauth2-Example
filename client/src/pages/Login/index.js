@@ -42,14 +42,14 @@ const Login = () => {
 
   const onGoogleLoginSuccess = useCallback(
     response => {
+      const idToken = response.tokenId;
       const profileData = {
-        access_token: response.accessToken,
         email: response.profileObj.email,
         first_name: response.profileObj.givenName,
         last_name: response.profileObj.familyName
       };
 
-      userInit(profileData).then(handleUserInit).catch(notifyError);
+      userInit(profileData, idToken).then(handleUserInit).catch(notifyError);
     },
     [handleUserInit]
   );
