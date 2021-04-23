@@ -43,13 +43,13 @@ const Login = () => {
   const onGoogleLoginSuccess = useCallback(
     response => {
       const idToken = response.tokenId;
-      const profileData = {
+      const data = {
         email: response.profileObj.email,
         first_name: response.profileObj.givenName,
         last_name: response.profileObj.familyName
       };
 
-      validateTokenAndObtainSession(profileData, idToken)
+      validateTokenAndObtainSession({ data, idToken })
         .then(handleUserInit)
         .catch(notifyError);
     },
