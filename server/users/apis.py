@@ -33,8 +33,6 @@ class UserInitApi(PublicApiMixin, ApiErrorsMixin, APIView):
         user, _ = user_get_or_create(**serializer.validated_data)
 
         response = Response(data=user_get_me(user=user))
-        jwt_cookie_data = jwt_login(user=user)
-
-        response.set_cookie(**jwt_cookie_data)
+        response = jwt_login(response=response, user=user)
 
         return response

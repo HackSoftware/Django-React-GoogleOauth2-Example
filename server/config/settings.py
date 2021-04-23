@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
+    'rest_framework_jwt',
+    'rest_framework_jwt.blacklist',
+
     'users',
 ]
 
@@ -145,7 +148,6 @@ PRODUCTION_SETTINGS = env.bool('DJANGO_PRODUCTION_SETTINGS', default=False)
 # JWT settings
 JWT_EXPIRATION_DELTA_DEFAULT = 2.628e+6  # 1 month in seconds
 JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(
         seconds=env.int(
             'DJANGO_JWT_EXPIRATION_DELTA',
@@ -155,7 +157,8 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
     'JWT_GET_USER_SECRET_KEY': lambda user: user.secret_key,
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'users.selectors.jwt_response_payload_handler',
-    'JWT_AUTH_COOKIE': 'jwt_token'
+    'JWT_AUTH_COOKIE': 'jwt_token',
+    'JWT_AUTH_COOKIE_SAMESITE': 'None'
 }
 
 
