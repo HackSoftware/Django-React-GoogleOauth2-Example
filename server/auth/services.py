@@ -38,7 +38,7 @@ def jwt_login(user: User) -> Optional[dict]:
         return cookie_data
 
 
-def google_validate_id_token(*, id_token: str) -> Optional[bool]:
+def google_validate_id_token(*, id_token: str) -> bool:
     # Reference: https://developers.google.com/identity/sign-in/web/backend-auth#verify-the-integrity-of-the-id-token
     response = requests.get(
         GOOGLE_ID_TOKEN_INFO_URL,
@@ -46,7 +46,7 @@ def google_validate_id_token(*, id_token: str) -> Optional[bool]:
     )
 
     if not response.ok:
-        raise ValidationError('ID token is invalid.')
+        raise ValidationError('id_token is invalid.')
 
     audience = response.json()['aud']
 
