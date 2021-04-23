@@ -8,7 +8,7 @@ import { HOME_URL } from 'config/urls';
 import { notifyError } from 'utils/notifications';
 import { UserContext, GithubStars, Layout } from 'components';
 
-import { userInit } from './sdk';
+import { validateTokenAndObtainSession } from './sdk';
 import styles from './Login.module.css';
 
 const { REACT_APP_GOOGLE_CLIENT_ID, REACT_APP_BASE_BACKEND_URL } = process.env;
@@ -49,7 +49,7 @@ const Login = () => {
         last_name: response.profileObj.familyName
       };
 
-      userInit(profileData, idToken)
+      validateTokenAndObtainSession(profileData, idToken)
         .then(handleUserInit)
         .catch(notifyError);
     },
