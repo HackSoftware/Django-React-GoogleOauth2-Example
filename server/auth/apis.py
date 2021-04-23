@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 from rest_framework import status, serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_jwt.views import ObtainJSONWebToken
+from rest_framework_jwt.views import ObtainJSONWebTokenView
 
 from django.urls import reverse
 from django.conf import settings
@@ -16,10 +16,9 @@ from users.services import user_record_login, user_change_secret_key, user_get_o
 from auth.services import jwt_login, google_get_access_token, google_get_user_info
 
 
-class LoginApi(ApiErrorsMixin, ObtainJSONWebToken):
+class LoginApi(ApiErrorsMixin, ObtainJSONWebTokenView):
     def post(self, request, *args, **kwargs):
-        # For reference:
-        # https://github.com/jpadilla/django-rest-framework-jwt/blob/master/rest_framework_jwt/views.py#L54
+        # Reference: https://github.com/Styria-Digital/django-rest-framework-jwt/blob/master/src/rest_framework_jwt/views.py#L44
         serializer = self.get_serializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
@@ -69,9 +68,7 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
         user, _ = user_get_or_create(**profile_data)
 
         response = redirect(settings.BASE_FRONTEND_URL)
-        jwt_cookie_data = jwt_login(user=user)
-
-        response.set_cookie(**jwt_cookie_data)
+        response = jwt_login(response=response, user=user)
 
         return response
 
