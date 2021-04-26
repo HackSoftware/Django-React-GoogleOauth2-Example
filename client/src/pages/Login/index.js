@@ -95,10 +95,7 @@ const Login = () => {
         clientId={REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Sign in with Google"
         onSuccess={onGoogleLoginSuccess}
-        onFailure={({ details }) => {
-          notifyError(details);
-        }}
-        cookiePolicy={'single_host_origin'}
+        onFailure={({ details }) => notifyError(details)}
       />
 
       <GithubStars className={styles.githubStars} />
