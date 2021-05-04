@@ -70,6 +70,7 @@ const Login = () => {
       client_id: REACT_APP_GOOGLE_CLIENT_ID,
       redirect_uri: `${REACT_APP_BASE_BACKEND_URL}/${redirectUri}`,
       prompt: 'select_account',
+      access_type: 'offline',
       scope
     };
 
