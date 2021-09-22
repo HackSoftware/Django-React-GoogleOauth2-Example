@@ -15,16 +15,6 @@ DJANGO_GOOGLE_OAUTH2_CLIENT_SECRET=<your-client-secret-here>
 6. We're ready! Run the server -> `python3 manage.py runserver`
 7. _(Optional)_ If you want to create a new superuser in order to use the Django admin, you can do the following:
 
-- Run `python3 manage.py shell_plus`
-- Execute the following code:
-
-```
-from users.services import user_create_superuser
-
-user_create_superuser(
-    email='your_email@here.com',
-    password='password-that-you-are-going-to-use-to-access-the-admin'
-)
-```
+- Run `python3 manage.py createsuperuser` and fill in the blanks.
 
 - You now have a new superuser! You cann navigate to `http://localhost:8000/admin/` in order to use the Django admin.
