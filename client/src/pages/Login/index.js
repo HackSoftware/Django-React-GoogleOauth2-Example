@@ -58,6 +58,10 @@ const Login = () => {
 
   const openGoogleLoginPage = useCallback(() => {
     const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+    
+    // Note that the trailing slash in the redirect uri below should be removed
+    // if the authorized redirect uri in the Google console doesn't contain a trailing slash
+    // otherwise redirection to the uri will fail with a 400 redirect_uri mismatch error
     const redirectUri = 'api/v1/auth/login/google/';
 
     const scope = [
