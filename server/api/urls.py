@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+app_name = 'api'
 
 v1_patterns = [
     path('auth/', include(('auth.urls', 'auth'))),

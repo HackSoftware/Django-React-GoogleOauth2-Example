@@ -10,7 +10,7 @@ class User(AbstractUser):
     secret_key = models.CharField(max_length=255, default=get_random_secret_key)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'

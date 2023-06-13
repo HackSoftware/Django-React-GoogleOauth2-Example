@@ -51,6 +51,12 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
 
         domain = settings.BASE_BACKEND_URL
         api_uri = reverse('api:v1:auth:login-with-google')
+        
+        # Note that this redirect_uri has a trailing slash coming from api_uri above, 
+        # if your authorized redirect uri in google console does not have a trailing slash,
+        # you can remove the one in api_uri above by replacing api_uri definition above with:
+        # api_uri = reverse('api:v1:auth:login-with-google')[:-1], 
+        # otherwise you'll get a 400 redirect_uri mismatch error while trying to get the access token
         redirect_uri = f'{domain}{api_uri}'
 
         access_token = google_get_access_token(code=code, redirect_uri=redirect_uri)
@@ -59,8 +65,8 @@ class GoogleLoginApi(PublicApiMixin, ApiErrorsMixin, APIView):
 
         profile_data = {
             'email': user_data['email'],
-            'first_name': user_data.get('givenName', ''),
-            'last_name': user_data.get('familyName', ''),
+            'first_name': user_data.get('given_name', ''),
+            'last_name': user_data.get('family_name', ''),
         }
 
         # We use get-or-create logic here for the sake of the example.
